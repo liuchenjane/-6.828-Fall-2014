@@ -1,0 +1,37 @@
+The UNIX SYSTEM: Making computers more productive
+The usual way to get a large computer application developed invovles a big team of people working in close coordination.
+most of time this work surprisingly well but it does have its problems and large projects tends to done poorly, they take a long time ,
+they consume an astonishing amount of money and in many cases the individual team members are dissatisfied, so everybody in computing 
+business is constantly searching for ways to do a better job of developing computer applications.
+there aren't likely to be any final answers both because the problems are hard and beacuse as we find the solution we try even more
+ ambitious objectives, but there are some things that can be done to make life easier for everybody on a large programming project.
+ A good programming enviroment helps a lot.
+ UNIX SYSTEM makes it a good enviroment for many purpose.
+ In Bell Labs as in many industries almost everyone has some kind of involvement with software either they are producing software and
+ that is their job or they are impacted by software or they use software .Fact that Bell Labs about 50% of people they are actually 
+ producing software and everyone else has some kind of involvement with it.
+ In fact, that's one of worst problems today, there is a cryong need for useful software to do effective jobs. 
+ We just do not have enough people for writing all that software, keeping large amounts of software working and keeping it working 
+ in the face of change is a big job takes a lot of skilled people to do this now.
+ Software is different from hardware. There is a continual demand for changes enhancement new features that people find necessary 
+ once they get used to a system. In other words, we put the system out there, people get used to it.
+ We have to build the software to be very changed tolerant.
+ ---------------------------------------------------------------
+ a UNIX　system is made up sort of three layers if you like the central layer the kernel is the thing that controls the resources.
+ then wrapped around that at least in conceptually is shell which is the interface between most users and the kernal part. it sits 
+ there and waits for you to type commands at it and interpret them.
+ and then around sort of an yet another layer are useful programm things like editors and compilers for programming languages.
+ 
+ sentence | makewords | lowercase | sort | unique | mismatch 
+ the system provides the mechanism of the pipline.
+ ---------------------------------------------------------------
+ UNIX features: 
+ 1.form atlas files; 
+ 2. the hierarchical directory structur; 
+ 3. the ablity to pipeline the output of one command as the input of another device
+ 4. independent i/o
+ ....
+ file system: the ability to store information for extended periods of time
+ another nice feature: the concept of input output redirection
+               
+ 
