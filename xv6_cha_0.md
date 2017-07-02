@@ -38,8 +38,8 @@ child: exiting
 parent: child=1234
 parent: child 1234 is done
 ```
-因为这取决于the父进程还是子进程的printf先被调用
-*注意：父进程和子进程与不同的memery和register，因此一个变量的改变不会影响另外的一个。*
+因为这取决于the父进程还是子进程的printf先被调用<br>
+*注意：父进程和子进程与不同的memery和register，因此一个变量的改变不会影响另外的一个。*<br>
 ---
 
 ## 系统调用：exec(filename, *argv)------------load a file and execute it <br>
@@ -171,7 +171,7 @@ write(fd,"world\n",6);
 只有通过fork和dup得到的file descriptor才和原来的fd共享offset。
 命令应用：
 `ls existing-file non-existing-file > tmp1 2>&1`
-2>&1：告诉shell, file descriptor 2 是 file descriptor 1 的的副本，已经存在文件的名字和不存在文件名字的错误信息都会显示在tmp1
+2>&1：告诉shell, file descriptor 2 是 file descriptor 1 的的副本，已经存在文件的名字和不存在文件名字的错误信息都会显示在tmp1 <br>
 ---
 ## 管道(pipe)<br>
 管道是一个小的内核缓存(kernel buffer),和file descriptor（用来读的）组成一对，pipe 用来写
@@ -236,7 +236,7 @@ echo hello world | wc
 *两者区别：
 pipe会自动清除(lean up);但使用文件重定向，shell必须谨慎删除；
 pipe可以通过任意长的数据流，但使用文件重定向时必须保证磁盘上有足够的空闲空间存储数据；
-pipe允许同步：两个进程可以通过一对管道来回发送信息
+pipe允许同步：两个进程可以通过一对管道来回发送信息 <br>
 ---
 ## 文件系统(File system)
 xv6 把目录当做一种特殊的文件，目录以树的形势组织，从根目录/开始。
