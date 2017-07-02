@@ -90,12 +90,14 @@ xv6系统通过上述的系统调用来运行用户的程序，以下是xv6 code
 8528 exit();
 8529 }
 ```
+
 读取命令后，调用fork创建一个shell进程的副本。父shell调用wait,当子进程在运行命令时<br>
-fork和exec分开，而不放在一个函数调用，设计好---原因。<br>
+fork和exec分开，而不放在一个函数调用，设计好的原因。<br>
 xv6分配用户空间内存：fork为子进程分配空间，是父进程的copy；<br>
-                   exec分配足够的空间以支持可运行文件(to hold the executable file<br>
+                    exec分配足够的空间以支持可运行文件(to hold the executable file)<br>
 一个进程在运行是需要更多空间时，系统调用sbrk(n):数据空间增大n bytes.<br>
 sbrk(n): grow process's memory by n bytes
+
 ---
 
 ## I/O and File descriptors(文件描述符)<br>
