@@ -1,4 +1,5 @@
-# 操作系统接口：perating system interface
+
+操作系统接口：perating system interface
 interface features: simple and narrow;
 接口：系统调用的集合
 进程（process）:each running program has memory containing instructions, data, and a stack.
@@ -7,6 +8,7 @@ shell: an ordinary program ,从用户那读程序再运行他们，是Unix-like�
 进程和内存(rocess and memory)
 系统调用： fork(): 创建子进程，和父进程有相同的内存目录（memory contents)，fork返回子进程和父进程的pid；子进程的pid==0，父进程内会返回子进程
 eg:<br>
+
 ```c
 int pid=fork();
 if(pid>0){  //父进程
@@ -20,7 +22,9 @@ if(pid>0){  //父进程
    printf("fork error\n");
 }
 ```
+
 输出：<br>
+
 ```
 parent: child=1234
 child: exiting
