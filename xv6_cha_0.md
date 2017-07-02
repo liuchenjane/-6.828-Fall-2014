@@ -38,11 +38,14 @@ child: exiting
 parent: child=1234
 parent: child 1234 is done
 ```
+
 因为这取决于the父进程还是子进程的printf先被调用<br>
-*注意：父进程和子进程与不同的memery和register，因此一个变量的改变不会影响另外的一个。*<br>
+
+**注意：父进程和子进程与不同的memery和register，因此一个变量的改变不会影响另外的一个**<br>
+
 ---
 
-## 系统调用：exec(filename, *argv)------------load a file and execute it <br>
+## 系统调用：exec(filename, *argv)————load a file and execute it <br>
 
 从文件系统中load一个新文件，该文件具有ELF结构，并把它替换到调用进程内存，成功后，从ELF指定的入口点考试执行
 eg:<br>
@@ -93,6 +96,7 @@ xv6分配用户空间内存：fork为子进程分配空间，是父进程的copy
                    exec分配足够的空间以支持可运行文件(to hold the executable file<br>
 一个进程在运行是需要更多空间时，系统调用sbrk(n):数据空间增大n bytes.<br>
 sbrk(n): grow process's memory by n bytes
+---
 
 ## I/O and File descriptors(文件描述符)<br>
 文件描述符是一个小的整数，它有内核管理的结构，可供进程读取和写入。<br>
@@ -143,9 +147,9 @@ if(fork()==0){
  exec("cat",argv);
 }
 ```
-首先，子进程关闭file descriptor 0,以确保当打开input.txt时，目前可用的最小的file descriptor 是0，这样运行程序时，标准输入指向input.txt。
-由此可见，将fork与exec分开有什么好处呢？
-这种机制允许子进程在实际运行目标程序前，可以对子进程进行修改，如这里的close和open就是修改。如果fork和exec是一个整体，这里就不可修改了。
+首先，子进程关闭file descriptor 0,以确保当打开input.txt时，目前可用的最小的file descriptor 是0，这样运行程序时，标准输入指向input.txt。<br>
+由此可见，将**fork与exec分开有什么好处呢？**
+**这种机制允许子进程在实际运行目标程序前，可以对子进程进行修改，如这里的close和open就是修改。如果fork和exec是一个整体，这里就不可修改了。**
 This separation allows the shell to fix up the child process before the child runs the intended program.
 
 虽然fork复制了flie descriptor table,但他们共享 file offset.
@@ -172,7 +176,9 @@ write(fd,"world\n",6);
 命令应用：
 `ls existing-file non-existing-file > tmp1 2>&1`
 2>&1：告诉shell, file descriptor 2 是 file descriptor 1 的的副本，已经存在文件的名字和不存在文件名字的错误信息都会显示在tmp1 <br>
+
 ---
+
 ## 管道(pipe)<br>
 管道是一个小的内核缓存(kernel buffer),和file descriptor（用来读的）组成一对，pipe 用来写
 pipe是进程通信一种方式.
@@ -199,12 +205,12 @@ if(fork()==0){
   close(p[1]);
 }
 ```
-fork之后，parent和child都有指向这个pipe的file descriptor,其中的child将读管道复制到标准输出，然后关闭p中的file descriptor，运行wc。
+fork之后，parent和child都有指向这个pipe的file descriptor,其中的child将读管道复制到标准输出，然后关闭p中的file descriptor，运行wc。<br>
 当wc从它的标准输入中读时，也是从pipe中读。当没有合适的待读数据时，读管道会一直等待新的数据写入或者所有指向写管道的file descriptor都关闭。因此，在运行wc之前，一定要将写管道关闭，否则会导致读入一直无法到达结尾。
 
 xv6 shell实现的管道：<br>
 eg: `grep fork sh.c | wc -l`
-子进程创建一个pipe，将pipe的左右两端相连，它运行的方式与下面代码体现的类似，分别为管道的左右两边调用runcmd,也要等待左边和右边都完成，调用两次wait
+子进程创建一个pipe，将pipe的左右两端相连，它运行的方式与下面代码体现的类似，分别为管道的左右两边调用runcmd,也要等待左边和右边都完成，调用两次wait.<br>
 ```c
 8450 case PIPE:
 8451 pcmd = (struct pipecmd*)cmd;
@@ -233,11 +239,13 @@ eg: `grep fork sh.c | wc -l`
 pipe 和临时文件
 echo hello world | wc
 等价于 echo hello world >/tmp/xyz; wc </tmp/xyz
-*两者区别：
+**两者区别：
 pipe会自动清除(lean up);但使用文件重定向，shell必须谨慎删除；
 pipe可以通过任意长的数据流，但使用文件重定向时必须保证磁盘上有足够的空闲空间存储数据；
 pipe允许同步：两个进程可以通过一对管道来回发送信息 <br>
+
 ---
+
 ## 文件系统(File system)
 xv6 把目录当做一种特殊的文件，目录以树的形势组织，从根目录/开始。
 系统调用chdir(dirname):改变当前目录
