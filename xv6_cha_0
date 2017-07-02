@@ -1,4 +1,4 @@
- 操作系统接口：perating system interface
+# 操作系统接口：perating system interface
 interface features: simple and narrow;
 接口：系统调用的集合
 进程（process）:each running program has memory containing instructions, data, and a stack.
@@ -6,7 +6,8 @@ shell: an ordinary program ,从用户那读程序再运行他们，是Unix-like�
 ---------------------------------------------------------------------------------------
 进程和内存(rocess and memory)
 系统调用： fork(): 创建子进程，和父进程有相同的内存目录（memory contents)，fork返回子进程和父进程的pid；子进程的pid==0，父进程内会返回子进程
-eg:
+eg:<br>
+```c
 int pid=fork();
 if(pid>0){  //父进程
    printf("parent: child=%d\n",pid);
@@ -18,28 +19,35 @@ if(pid>0){  //父进程
 }else{
    printf("fork error\n");
 }
-输出：
+```
+输出：<br>
+```
 parent: child=1234
 child: exiting
 parent: child 1234 is done
-也可能是：
+```
+也可能是：<br>
+```
 child: exiting
 parent: child=1234
 parent: child 1234 is done
+```
 因为这取决于the父进程还是子进程的printf先被调用
 注意：父进程和子进程与不同的memery和register，因此一个变量的改变不会影响另外的一个。
 
 系统调用：exec(filename, *argv)------------load a file and execute it
 从文件系统中load一个新文件，该文件具有ELF结构，并把它替换到调用进程内存，成功后，从ELF指定的入口点考试执行
-eg:
+eg:<br>
+```
 char *argv[3];
 argv[0]="echo";
 argv[1]="hello";
 argv[2]=0;
 exec("/bin/echo",argv);
 printf("exec error\n");
-
-xv6系统通过上述的系统调用来运行用户的程序，以下是xv6 code中关于shell结构的部分：
+```
+xv6系统通过上述的系统调用来运行用户的程序，以下是xv6 code中关于shell结构的部分：<br>
+```c
 8500 int
 8501 main(void)
 8502 {
@@ -70,6 +78,7 @@ xv6系统通过上述的系统调用来运行用户的程序，以下是xv6 code
 8527 }
 8528 exit();
 8529 }
+```
 读取命令后，调用fork创建一个shell进程的副本。父shell调用wait,当子进程在运行命令时。
 fork和exec分开，而不放在一个函数调用，设计好---原因。
 xv6分配用户空间内存：fork为子进程分配空间，是父进程的copy；
@@ -79,7 +88,7 @@ sbrk(n): grow process's memory by n bytes
 
 I/O and File descriptors(文件描述符)
 文件描述符是一个小的整数，它有内核管理的结构，可供进程读取和写入。
-file descriptor分配：the lowerest-numbered unused descriptor of the current process.
+file descriptor分配：`the lowerest-numbered unused descriptor of the current process.`
 the file descriptor interface abstracts away the differences between files, pipes, and devices, making them all look like streams of bytes.
 标准输入（standard input): file descriptor 0
 标准输出（standard input): file descriptor 1
